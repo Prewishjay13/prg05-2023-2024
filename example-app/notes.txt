@@ -1,0 +1,62 @@
+tutorial: https://www.youtube.com/watch?v=ImtZ5yENzgE&ab_channel=freeCodeCamp.org
+controller:
+Creating a controller: php artisan make:controller <name> -->php artisan make:controller PostsController --resource -->> php artisan:make PostsController
+accepts http requests, 
+form validation logic, 
+user authentication (gets info from a database to check if the credentials match)
+input validation(where i.e. numbers should be added are  added)
+and sends a response to the user
+
+http request from the front end is recieved and once the data from the databse is retrieved from the model
+after that data is sent back to the view
+
+routes name addable (dary)
+headers(trav)
+
+You have to use php artisan ui:auth instead of php artisan make:auth . Before using that you have to install new dependencies by calling: 
+composer require laravel/ui --dev 
+run: php artisan make:auth
+npm -v
+node -v
+npm install
+node install
+
+User authentication & registration 
+run: composer require laravel/ui --dev 
+run: php artisan ui:auth 
+
+make sure node and npm are installed by doing
+npm -v
+node -v
+
+install npm:
+npm install
+
+controller:
+php artisan make:controller nameController
+or
+php artisan make:controller nameController --resource (comes with index,show,edit,update,destroy)
+
+policy for auth
+php artisan make:policy ProfilePolicy -m Profile    -->policy and the model u want to use it for
+
+
+
+
+
+refreshen van migrations
+php artisan migrate:refresh
+
+migration: is a file that holds all the instructions to create itself
+
+model:
+
+Controller:
+
+View:
+
+Owasp10:
+
+Otap:
+
+How to protect against sql injections?
