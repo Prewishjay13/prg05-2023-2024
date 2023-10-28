@@ -1,7 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\PostModel;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('test');
+    return view('allposts', [
+        'heading' => "People's favorite posts",
+        'posts' => PostModel::allPosts()
+    ]);
+});
+
+// Singel post
+Route::get('/post/{id}', function($id) {
+    return view('post', [
+        'heading' => "Found post:", 
+        'post' =>  PostModel::findPost($id)
+    ]);
 });
 // Auth::routes();
 

@@ -1,4 +1,24 @@
 tutorial: https://www.youtube.com/watch?v=ImtZ5yENzgE&ab_channel=freeCodeCamp.org
+
+database connection:
+go here: http://localhost/phpmyadmin/index.php?route=/server/databases
+make a database
+go to .env file line 14 change the db name to the db name u made in xampp
+go to the config folder and select database file and change:
+go to msql object/array line 14/15 change the name and username to db name and root: 
+            'database' => env('DB_DATABASE', 'laravelapp'),
+            'username' => env('DB_USERNAME', 'root'),
+
+run migration: php artisan migrate
+reset migration: php artisan migrate:reset
+
+refresh migration:
+php artisan migrate:refresh
+# Refresh the database and run all database seeds...
+php artisan migrate:refresh --seed
+
+
+
 controller:
 Creating a controller: php artisan make:controller <name> -->php artisan make:controller PostsController --resource -->> php artisan:make PostsController
 accepts http requests, 
@@ -37,6 +57,9 @@ php artisan make:controller nameController
 or
 php artisan make:controller nameController --resource (comes with index,show,edit,update,destroy)
 
+migration:
+ php artisan make:migration create_posts_table
+ 
 policy for auth
 php artisan make:policy ProfilePolicy -m Profile    -->policy and the model u want to use it for
 
