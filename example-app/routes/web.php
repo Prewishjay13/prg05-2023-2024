@@ -15,7 +15,7 @@ use App\Models\PostModel;
 */
 
 Route::get('/', function () {
-    return view('allposts', [
+    return view('posts/index', [
         'heading' => "People's favorite posts",
         'posts' => PostModel::allPosts()
     ]);
@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 // Singel post
 Route::get('/post/{id}', function($id) {
-    return view('post', [
+    return view('posts/post', [
         'heading' => "Found post:", 
         'post' =>  PostModel::findPost($id)
     ]);
