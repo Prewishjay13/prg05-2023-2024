@@ -10,35 +10,19 @@ class PostModel extends Model
     use HasFactory;
     // protected $fillable = ['title', 'company', 'tags', 'email', 'website', 'description'];
     //other method appService provider poot function unguard and importing model class
-    public static function allPosts(){
+    public function scopeFilter($query, array $filters){
+        if($filters['genre'] ?? false){
+            $query->where('genres', 'like', '%' . request('genre') . '%');
+        }
 
-        return [
-            [
-                'id' => 1,
-                'title' => 'Blog',
-                'company' => 'companyname'
-                'tags' => ['tag1', 'tag2'],
-                'email' => 'test@gmail.com',
-                'website' => 'www.test.com',
-                'description' => 'dit is een blog post'
-            ],
-            [
-                'id' => 2,
-                'title' => 'Video',
-                'tags' => ['tag3', 'tag4'],
-                'email' => 'test2@gmail.com',
-                'website' => 'www.test2.com',
-                'description' => 'dit is een video post'
-            ]
-        ];
-    }
-    public static function findPost($id){
-        $posts = self::allPosts();
-
-        foreach($posts as $post){
-            if($post['id'] == $id){
-                return $post;
-            }
+        if($filters['search'] ?? false){
+            $query->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('genres', 'like', '%' . request('search') . '%')
+                ->orWhere('artist', 'like', '%' . request('search') . '%');
         }
     }
+        // Relationship To User
+        public function user() {
+            return $this->belongsTo(User::class, 'user_id');
+        }
 }

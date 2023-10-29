@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\PostModel;
 
 class PostsController extends Controller
 {
@@ -13,9 +14,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //  return view('posts.index', [
-        //     'posts' => PostModel::latest()->filter(request(['tag', 'search']))->paginate(6)
-        // ]);
+         return view('posts.index', [
+            'posts' => PostModel::latest()->filter(request(['tag', 'search']))->paginate(10)
+        ]);
     }
 
     /**
@@ -44,7 +45,7 @@ class PostsController extends Controller
         //     $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         // }
 
-        //  $formFields['user_id'] = auth()->id();
+        $formInputs['user_id'] = auth()->id();
 
         PostModel::create($formInputs);
 
@@ -54,65 +55,64 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(PostModel $id)
     {
-        //    return view('posts.show', [
-        //     'post' => $post
-        // ]);
+           return view('posts.show', [
+            'post' => $post
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(PostModel $id)
     {
-        // return view('posts.edit', ['post' => $post]);
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, PostModel $post)
     {
         //  // Make sure logged in user is owner of this post
-        // if($post->user_id != auth()->id()) {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if($post->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
         
-        // $formFields = $request->validate([
-        //     'title' => 'required',
-        //     'company' => ['required'],
-        //     'location' => 'required',
-        //     'website' => 'required',
-        //     'email' => ['required', 'email'],
-        //     'tags' => 'required',
-        //     'description' => 'required'
-        // ]);
+        $formInputs = $request->validate([
+            'title' => 'required',
+            'company' => ['required'],
+            'tags' => 'required',
+            'email' => ['required', 'email'],
+            'website' => 'required',
+            'description' => 'required'
+        ]);
 
         // if($request->hasFile('logo')) {
-        //     $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        //     $formInputs['logo'] = $request->file('logo')->store('logos', 'public');
         // }
 
-        // $listing->update($formFields);
+        $post->update($formInputs);
 
-        // return back()->with('message', 'Post updated successfully!');
+        return back()->with('message', 'Post updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(PostModel $post)
     {
-    //       if($post->user_id != auth()->id()) {
-    //         abort(403, 'Unauthorized Action');
-    //     }
+          if($post->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
         
-    //     $post->delete();
-    //     return redirect('/')->with('message', 'Post deleted');
+        $post->delete();
+        return redirect('/')->with('message', 'Post deleted');
     // }
     
-    //    // Manage Listings
-    // public function manage() {
-    //     return view('posts.manage', ['posts' => auth()->user()->posts()->get()]);
+    //    // Manage Posts
+    public function manage() {
+        return view('posts.manage', ['posts' => auth()->user()->posts()->get()]);
     }
 }

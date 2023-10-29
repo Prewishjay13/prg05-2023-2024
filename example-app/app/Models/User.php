@@ -42,4 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+      // Relationship With Post
+      public function listings() {
+        return $this->hasMany(PostModel::class, 'user_id');
+    }
 }
