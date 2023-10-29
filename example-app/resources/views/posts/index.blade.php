@@ -1,27 +1,19 @@
-@extends('layout')
+<x-layout>
+    
+@include('partials._search')
 
-@section('content')
-
-<h1>{{$heading}}</h1>
-
-@unless(count($posts) == 0)
+<div class="lg:grid lg:grid-cols-2 gap-4 space-y-4 md:space-y-0 mx-4">
 
 @foreach ($posts as $post)
 
-<h2>
-        <a href="/post/{{$post['id']}}">
-        {{$post['title']}}</a>
-    </h2>
-    <p>
-        {{$post['description']}}
-    </p>
+<x-track-card :track="$post"/>
+   
 @endforeach
-@else
-<p>No posts found</p>
-@endunless
 
-<div class="mt-6 p-4">
-    {{$posts->links()}}
 </div>
 
-@endsection 
+<div class="mt-6 p-4">
+    {{$posts->website()}}
+</div>
+
+</x-layout>
