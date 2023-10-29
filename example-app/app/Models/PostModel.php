@@ -11,14 +11,14 @@ class PostModel extends Model
     // protected $fillable = ['title', 'company', 'tags', 'email', 'website', 'description'];
     //other method appService provider poot function unguard and importing model class
     public function scopeFilter($query, array $filters){
-        if($filters['genre'] ?? false){
-            $query->where('genres', 'like', '%' . request('genre') . '%');
+        if($filters['tags'] ?? false){
+            $query->where('tags', 'like', '%' . request('genre') . '%');
         }
 
         if($filters['search'] ?? false){
             $query->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('genres', 'like', '%' . request('search') . '%')
-                ->orWhere('artist', 'like', '%' . request('search') . '%');
+                ->orWhere('tags', 'like', '%' . request('search') . '%')
+                ->orWhere('comapny', 'like', '%' . request('search') . '%');
         }
     }
         // Relationship To User
