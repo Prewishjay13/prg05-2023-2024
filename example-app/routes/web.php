@@ -16,28 +16,51 @@ use App\Http\Controllers\UsersController;
 |
 */
 
-Route::get('/', function () {
-    return view('posts/index', [
-        'heading' => "People's favorite posts",
-        'posts' => PostModel::allPosts()
-    ]);
-});
+// Route::get('/', function () {
+//     return view('posts/index', [
+//         'heading' => "People's favorite posts",
+//         'posts' => PostModel::allPosts()
+//     ]);
+// });
 
-// Singel post
-Route::get('/post/{id}', function($id) {
-    return view('posts/post', [
-        'heading' => "Found post:", 
-        'post' =>  PostModel::findPost($id)
-    ]);
-});
+// // Singel post
+// Route::get('/post/{id}', function($id) {
+//     return view('posts/post', [
+//         'heading' => "Found post:", 
+//         'post' =>  PostModel::findPost($id)
+//     ]);
+// });
+
 // Auth::routes();
+//all posts
+Route::get('/posts', [App\Http\Controllers\PostsController::class, 'index']);
+//single post
+Route::get('/posts/{post}', [PostsController::class, 'show']);
+//create post
+Route::get('/posts/create', [PostsController::class, 'create'])->middleware('auth');
+// Store Post data
+Route::post('/posts', [PostsController::class, 'store'])->middleware('auth');
+//edit and update
+Route::get('/posts/{post}/edit', [PostsController::class, 'edit'])->middleware('auth');
+Route::put('/posts/{post}', [PostsController::class, 'update'])->middleware('auth');
 
-// Route::get('/posts', [App\Http\Controllers\PostsController::class, 'index'])->name('posts.index');
-// Route::get('/', [App\Http\Controllers\PostsController::class, 'index'])->name('posts.index');
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
+//Delete
+Route::delete('/posts/{post}', [PostsController::class, 'destroy'])->middleware('auth');
 
-// Route::get('/profile/{user}/edit',  [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');
-// Route::get('/profile/{user}/{post}/edit',  [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');
-// Route::post('/post', [App\Http\Controllers\PostsController::class, 'store'])->name('posts.store');
-// Route::get('/create', [App\Http\Controllers\PostsController::class, 'create'])->name('posts.create');
+//manage posts
+Route::get('/posts/manage', [PostsController::class, 'manage'])->middleware('auth');
+
+//register user form
+Route::get('/register', [UsersController::class, 'create'])->middleware('guest');
+
+// Create New User
+Route::post('/users', [UsersController::class, 'store']);
+
+// Log User Out
+Route::post('/logout', [UsersController::class, 'logout'])->middleware('auth');
+
+// Show Login Form
+Route::get('/login', [UsersController::class, 'login'])->name('login')->middleware('guest');
+
+// Log in User
+Route::post('/users/authenticate', [UsersController::class, 'authenticate']);
