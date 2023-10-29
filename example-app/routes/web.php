@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\PostModel;
+use App\Models\Post;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UsersController;
 /*
@@ -33,9 +33,10 @@ use App\Http\Controllers\UsersController;
 
 // Auth::routes();
 //all posts
-Route::get('/posts', [App\Http\Controllers\PostsController::class, 'index']);
+Route::get('/', [PostsController::class, 'index']);
+
 //single post
-Route::get('/posts/{post}', [PostsController::class, 'show']);
+Route::get('/post/{post}', [PostsController::class, 'show']);
 //create post
 Route::get('/posts/create', [PostsController::class, 'create'])->middleware('auth');
 // Store Post data

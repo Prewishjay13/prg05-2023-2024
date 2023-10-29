@@ -44,7 +44,7 @@ class User extends Authenticatable
     ];
 
       // Relationship With Post
-      public function listings() {
-        return $this->hasMany(PostModel::class, 'user_id');
+      public function posts() {
+        return $this->hasMany(Post::class, 'user_id');
     }
 }

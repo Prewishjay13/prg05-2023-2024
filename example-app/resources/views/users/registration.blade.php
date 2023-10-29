@@ -49,7 +49,7 @@
         </div>
 
         <div class="mb-6">
-            <button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
+            <button style="background: #44b0d4;" type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
                 Sign Up
             </button>
         </div>

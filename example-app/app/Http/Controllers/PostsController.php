@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Models\PostModel;
+use App\Models\Post;
 
 class PostsController extends Controller
 {
@@ -15,7 +15,7 @@ class PostsController extends Controller
     public function index()
     {
          return view('posts.index', [
-            'posts' => PostModel::latest()->filter(request(['tag', 'search']))->paginate(10)
+            'posts' => Post::latest()->filter(request(['tag', 'search']))->paginate(10)
         ]);
     }
 
@@ -47,7 +47,7 @@ class PostsController extends Controller
 
         $formInputs['user_id'] = auth()->id();
 
-        PostModel::create($formInputs);
+        Post::create($formInputs);
 
         return redirect('/')->with('message', 'Post created successfully!');
     }
@@ -55,7 +55,7 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PostModel $id)
+    public function show(Post $post)
     {
            return view('posts.show', [
             'post' => $post
@@ -65,7 +65,7 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PostModel $id)
+    public function edit(Post $post)
     {
         return view('posts.edit', ['post' => $post]);
     }
@@ -73,7 +73,7 @@ class PostsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PostModel $post)
+    public function update(Request $request, Post $post)
     {
         //  // Make sure logged in user is owner of this post
         if($post->user_id != auth()->id() && !auth()->user()->is_admin) {
@@ -101,7 +101,7 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PostModel $post)
+    public function destroy(Post $post)
     {
           if($post->user_id != auth()->id() && !auth()->user()->is_admin) {
             abort(403, 'Unauthorized Action');
@@ -109,7 +109,7 @@ class PostsController extends Controller
         
         $post->delete();
         return redirect('/')->with('message', 'Post deleted');
-    // }
+     }
     
     //    // Manage Posts
     public function manage() {

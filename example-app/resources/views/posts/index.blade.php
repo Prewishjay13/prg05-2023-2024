@@ -6,14 +6,14 @@
 
 @foreach ($posts as $post)
 
-<x-track-card :track="$post"/>
+<x-post-card :post="$post"/>
    
 @endforeach
 
 </div>
 
 <div class="mt-6 p-4">
-    {{$posts->website()}}
+   
 </div>
 
 </x-layout>

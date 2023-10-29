@@ -9,7 +9,7 @@
             <div class="text-xl font-bold mb-4">{{$post->company}}</div> 
             <x-post-tags :tagsCsv="$post->tags"/>
             <div class="text-lg mt-4">
-                <i class="fa-solid fa-location-dot"></i> <a href="{{$post->link}}">{{$post->website}}></a>
+                <i class="fa-solid"></i> <a href="{{$post->link}}">{{$post->website}}</a>
             </div>
         </div>
     </div>

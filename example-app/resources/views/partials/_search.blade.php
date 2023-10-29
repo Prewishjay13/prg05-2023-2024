@@ -5,9 +5,9 @@
                 class="fa fa-search text-gray-400 z-20 hover:text-gray-500"
             ></i>
         </div>
-        <input type="text" name="search" class="h-14 w-full pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none" placeholder="Search Music"/>
+        <input type="text" name="search" class="h-14 w-full pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none" placeholder="Search Post"/>
         <div class="absolute top-2 right-2">
-            <button style="background:#fffb96; color: black;" type="submit" class="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600">
+            <button style="background:#44b0d4; color: white;" type="submit" class="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600">
                 Search
             </button>
         </div>

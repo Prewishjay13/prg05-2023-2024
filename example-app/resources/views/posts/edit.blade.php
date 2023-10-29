@@ -39,7 +39,7 @@
             </div>   
 
             <div class="mb-6">
-                <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">Update</button>
+                <button style="background: #44b0d4;" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">Edit</button>
 
                 <a href="/" class="text-black ml-4"> Back </a>
             </div>
