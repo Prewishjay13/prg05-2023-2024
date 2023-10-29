@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PostsController extends Controller
 {
@@ -13,7 +14,7 @@ class PostsController extends Controller
     public function index()
     {
         //  return view('posts.index', [
-        //     'posts' => Post::latest()->filter(request(['tag', 'search']))->paginate(6)
+        //     'posts' => PostModel::latest()->filter(request(['tag', 'search']))->paginate(6)
         // ]);
     }
 
@@ -22,7 +23,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        // return view('posts.create');
+        return view('posts.create');
     }
 
     /**
@@ -30,24 +31,24 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //  $formFields = $request->validate([
-        //     'title' => 'required',
-        //     'company' => ['required', Rule::unique('listings', 'company')],
-        //     'location' => 'required',
-        //     'website' => 'required',
-        //     'email' => ['required', 'email'],
-        //     'tags' => 'required',
-        //     'description' => 'required'
-        // ]);
+         $formInputs = $request->validate([
+            'title' => 'required',
+            'company' => ['required', Rule::unique('posts', 'company')],
+            'tags' => 'required',
+            'email' => ['required', 'email'],
+            'website' => 'required',
+            'description' => 'required'
+        ]);
         
         // if($request->hasFile('logo')) {
         //     $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         // }
+
         //  $formFields['user_id'] = auth()->id();
 
-        // Post::create($formFields);
+        PostModel::create($formInputs);
 
-        // return redirect('/')->with('message', 'Post created successfully!');
+        return redirect('/')->with('message', 'Post created successfully!');
     }
 
     /**

@@ -8,12 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class PostModel extends Model
 {
     use HasFactory;
+    // protected $fillable = ['title', 'company', 'tags', 'email', 'website', 'description'];
+    //other method appService provider poot function unguard and importing model class
     public static function allPosts(){
 
         return [
             [
                 'id' => 1,
                 'title' => 'Blog',
+                'company' => 'companyname'
                 'tags' => ['tag1', 'tag2'],
                 'email' => 'test@gmail.com',
                 'website' => 'www.test.com',
