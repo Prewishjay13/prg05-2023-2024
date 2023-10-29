@@ -76,7 +76,7 @@ class PostsController extends Controller
     public function update(Request $request, PostModel $post)
     {
         //  // Make sure logged in user is owner of this post
-        if($post->user_id != auth()->id()) {
+        if($post->user_id != auth()->id() && !auth()->user()->is_admin) {
             abort(403, 'Unauthorized Action');
         }
         
@@ -103,7 +103,7 @@ class PostsController extends Controller
      */
     public function destroy(PostModel $post)
     {
-          if($post->user_id != auth()->id()) {
+          if($post->user_id != auth()->id() && !auth()->user()->is_admin) {
             abort(403, 'Unauthorized Action');
         }
         

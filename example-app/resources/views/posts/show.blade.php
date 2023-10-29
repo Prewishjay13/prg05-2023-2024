@@ -25,6 +25,8 @@
             </div>
         </x-card>
 
+
+    @if(auth()->check() && auth()->user()->is_admin == 1)
     <x-card class="mt-4 p-2 flex space-x-6">
         <a href="/posts/{{$post->id}}/edit">
             <i class="fa-solid fa-pencil"></i> Edit
@@ -35,5 +37,6 @@
             @method('DELETE')
             <button class="text-red-500"><i class="fa-solid fa-trash"></i>Delete</button>
     </x-card>
+    @endif
     </div>
 </x-layout>
