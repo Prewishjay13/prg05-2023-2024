@@ -34,22 +34,7 @@ use App\Http\Controllers\UsersController;
 
 =======
 use App\Models\PostModel;
-
 //routes
-Route::get('/', function () {
-    return view('posts/index', [
-        'heading' => "People's favorite posts",
-        'posts' => PostModel::allPosts()
-    ]);
-});
-
-// Singel post
-Route::get('/post/{id}', function($id) {
-    return view('posts/post', [
-        'heading' => "Found post:", 
-        'post' =>  PostModel::findPost($id)
-    ]);
-});
 
 >>>>>>> Stashed changes
 // Auth::routes();
