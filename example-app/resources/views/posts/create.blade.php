@@ -2,7 +2,7 @@
     <div class="bg-gray-50 border border-gray-200 p-10 rounded max-w-lg mx-auto mt-24">
         <header class="text-center">
             <h2 class="text-2xl font-bold uppercase mb-1">Create a post</h2>
-            <p class="mb-4">Post your favorite track!</p>
+            <p class="mb-4">Post your favorite post!</p>
         </header>
 
         <form method="POST" action="/posts">
@@ -62,10 +62,13 @@
             </div>  
 
             <div class="mb-6">
-                <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">Post Track</button>
+                <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">Post Post</button>
 
                 <a href="/" class="text-black ml-4"> Back </a>
             </div>
         </form>
     </div>
+    @if(session('message'))
+        <p class="text-red-500">{{ session('message') }}</p>
+    @endif
 </x-layout>

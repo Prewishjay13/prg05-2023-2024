@@ -2,41 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-<<<<<<< Updated upstream
 use App\Models\Post;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UsersController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('posts/index', [
-//         'heading' => "People's favorite posts",
-//         'posts' => PostModel::allPosts()
-//     ]);
-// });
-
-// // Singel post
-// Route::get('/post/{id}', function($id) {
-//     return view('posts/post', [
-//         'heading' => "Found post:", 
-//         'post' =>  PostModel::findPost($id)
-//     ]);
-// });
-
-=======
+use App\Http\Controllers\AdminController;
 use App\Models\PostModel;
-//routes
 
->>>>>>> Stashed changes
 // Auth::routes();
 //all posts
 Route::get('/', [PostsController::class, 'index']);
@@ -54,6 +25,8 @@ Route::put('/posts/{post}', [PostsController::class, 'update'])->middleware('aut
 //Delete
 Route::delete('/posts/{post}', [PostsController::class, 'destroy'])->middleware('auth');
 
+//deactivate post
+Route::put('/posts/{post}/deactivate', [PostsController::class, 'deactivate'])->middleware('auth');
 //manage posts
 Route::get('/posts/manage', [PostsController::class, 'manage'])->middleware('auth');
 
@@ -71,3 +44,12 @@ Route::get('/login', [UsersController::class, 'login'])->name('login')->middlewa
 
 // Log in User
 Route::post('/users/authenticate', [UsersController::class, 'authenticate']);
+
+//likes
+Route::post('/posts/{post}/like', [PostsController::class, 'addLike'])->name('posts.like')->middleware('auth');
+
+Route::get('/admin/manage', [PostsController::class, 'adminManage'])->name('admin.manage');
+
+Route::post('/posts/{post}/deactivate', [PostsController::class, 'deactivate'])->name('posts.deactivate');
+
+Route::post('/posts/{post}/activate', [PostsController::class, 'activate'])->name('posts.activate');

@@ -32,10 +32,18 @@
                 @auth 
                 <li>
                     <span class="font-bold uppercase">
-                        Welcom {{auth()->user()->name}}
+                        Welcome {{auth()->user()->name}}
                     </span>
                 </li>
                 <li>
+                @auth
+                        @if(auth()->user()->is_admin)
+                            <a href="/admin/manage" class="hover:text-laravel">
+                                <i class="fa-solid fa-gear"></i>Admin Manage Posts
+                            </a>
+                        @endif
+                        <!-- ... de rest van je auth-logica ... -->
+                    @endauth
                     <a href="/posts/manage" class="hover:text-laravel">
                         <i class="fa-solid"></i>Manage Post</a>
                 </li>

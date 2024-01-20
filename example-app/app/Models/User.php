@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use App\Models\Post;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -47,4 +47,15 @@ class User extends Authenticatable
       public function posts() {
         return $this->hasMany(Post::class, 'user_id');
     }
+
+    public function likedPosts()
+    {
+        return $this->hasMany(Post::class, 'user_id', 'id');
+    }
+    
+    public function hasLikedPost(Post $post)
+    {
+        return $this->likedPosts->contains($post);
+    }
+
 }

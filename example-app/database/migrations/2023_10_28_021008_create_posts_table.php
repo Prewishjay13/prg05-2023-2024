@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('website');
             $table->longText('description');
             $table->timestamps();
+            $table->boolean('status')->default(0);
+            $table->longText('liked_by');
         });
     }
 

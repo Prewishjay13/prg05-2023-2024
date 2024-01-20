@@ -34,6 +34,21 @@
                     <td class="px-4 py-8 border-t border-b border-grey-300 text-lg">
                         <p class="text-center">No posts found</p>
                     </td>
+                    <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
+                        <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
+                            @if($post->status)
+                                <form method="POST" action="/posts/{{$post->id}}/deactivate">
+                                    @csrf
+                                    <button class="text-red-500"><i class="fa-solid fa-toggle-on"></i>Deactivate</button>
+                                </form>
+                            @else
+                                <form method="POST" action="/posts/{{$post->id}}/activate">
+                                    @csrf
+                                    <button class="text-green-500"><i class="fa-solid fa-toggle-off"></i>Activate</button>
+                                </form>
+                            @endif
+                        </td>
+                    </td>
                 </tr>
                 @endunless
             </tbody>

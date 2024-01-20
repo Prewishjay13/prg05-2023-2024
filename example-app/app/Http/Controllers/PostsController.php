@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Post;
-
+use App\Models\Like; 
+use App\Models\User;
 class PostsController extends Controller
 {
     /**
@@ -14,8 +15,13 @@ class PostsController extends Controller
      */
     public function index()
     {
-         return view('posts.index', [
-            'posts' => Post::latest()->filter(request(['tag', 'search']))->paginate(10)
+        $tags = Post::distinct('tags')->pluck('tags')->flatMap(function($tag) {
+            return explode(',', $tag);
+        })->unique()->values();
+         
+        return view('posts.index', [
+            'posts' => Post::latest()->filter(request(['tag', 'search']))->paginate(5),
+            'tags' => $tags,
         ]);
     }
 
@@ -24,6 +30,17 @@ class PostsController extends Controller
      */
     public function create()
     {
+        // $user = Auth::user();
+
+        // // Check if the user has liked enough posts
+        // if (!$user->userHasLikedEnoughPosts($user)) {
+        //     $remainingLikes = 5 - $user->likes()->count();
+
+        //     return view('posts.create', [
+        //         'remainingLikes' => $remainingLikes,
+        //     ]);
+        // }
+
         return view('posts.create');
     }
 
@@ -32,6 +49,11 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        $userLikesCount = auth()->user()->likes_given;
+        if ($userLikesCount < 10) {
+            return redirect('/')->with('message', 'Je moet minimaal 10 likes geven voordat je een post kunt toevoegen.');
+        }
+
          $formInputs = $request->validate([
             'title' => 'required',
             'company' => ['required', Rule::unique('posts', 'company')],
@@ -113,6 +135,55 @@ class PostsController extends Controller
     
     //    // Manage Posts
     public function manage() {
-        return view('posts.manage', ['posts' => auth()->user()->posts()->get()]);
+        $posts = auth()->user()->posts()->get();
+        return view('posts.manage', ['posts' => $posts]);
+    }
+
+    public function deactivate(Request $request, Post $post){
+        // Zorg ervoor dat de huidige gebruiker eigenaar is van de post of een admin is voordat je deze deactiveert
+        if ($post->user_id == auth()->id() || auth()->user()->is_admin) {
+            $this->toggleActiveStatus($post, 0);
+            return back()->with('message', 'Post has been deactivated!');
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
+    }
+    
+    public function activate(Request $request, Post $post){
+        // Zorg ervoor dat de huidige gebruiker eigenaar is van de post of een admin is voordat je deze activeert
+        if ($post->user_id == auth()->id() || auth()->user()->is_admin) {
+            $this->toggleActiveStatus($post, 1);
+            return back()->with('message', 'Post has been activated!');
+        } else {
+            abort(403, 'Unauthorized Action');
+        }
+    }
+    
+    protected function toggleActiveStatus(Post $post, $status){
+        
+        $post->update(['status' => $status]);
+    }
+
+    public function addLike(Post $post)
+    {
+        // Controleer of de gebruiker de post al heeft geliket
+        $user = auth()->user();
+
+        if (!$user->likedPosts->contains($post->id)) {
+            // Voeg like toe
+            $post->addLike();
+
+            // Verhoog likes_given van de gebruiker
+            $user->increment('likes_given');
+
+            return back()->with('success', 'Like toegevoegd!');
+        } else {
+            return back()->with('error', 'Je hebt deze post al geliket!');
+        }
+    }
+
+    public function adminManage() {
+        $posts = Post::latest()->paginate(5);
+        return view('posts.admin_manage', compact('posts'));
     }
 }
