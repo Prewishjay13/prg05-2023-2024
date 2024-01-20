@@ -1,4 +1,4 @@
-<form action="/"  method="GET">
+<form action="/"  method="GET" id='filterForm'>
     <div class="relative border-2 border-gray-100 m-4 rounded-lg">
     <button id="filterButton" class="absolute top-2 right-2 bg-gray-200 p-2 rounded-md cursor-pointer">
             <i class="fa fa-filter text-gray-600">DropDown</i>
@@ -24,3 +24,25 @@
     </div>
 </div>
 </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterButton = document.getElementById('filterButton');
+        const dropdownContent = document.getElementById('dropdownContent');
+
+        filterButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            dropdownContent.classList.toggle('hidden');
+        });
+
+        const tagLinks = document.querySelectorAll('#dropdownContent a');
+        tagLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                console.log('Tag clicked:', this.innerText);
+                document.getElementById('tagInput').value = this.innerText;
+                document.getElementById('filterForm').submit();
+            });
+        });
+    });
+</script>

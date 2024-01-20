@@ -27,13 +27,6 @@
                             <button class="text-red-500"><i class="fa-solid fa-trash"></i>Delete</button>
                         </form>
                     </td>
-                </tr>
-                @endforeach
-                @else
-                <tr class="border-grey-300">
-                    <td class="px-4 py-8 border-t border-b border-grey-300 text-lg">
-                        <p class="text-center">No posts found</p>
-                    </td>
                     <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
                         <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
                             @if($post->status)
@@ -48,6 +41,13 @@
                                 </form>
                             @endif
                         </td>
+                    </td>
+                </tr>
+                @endforeach
+                @else
+                <tr class="border-grey-300">
+                    <td class="px-4 py-8 border-t border-b border-grey-300 text-lg">
+                        <p class="text-center">No posts found</p>
                     </td>
                 </tr>
                 @endunless

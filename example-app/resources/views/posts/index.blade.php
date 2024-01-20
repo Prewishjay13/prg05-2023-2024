@@ -6,7 +6,9 @@
 
 @foreach ($posts as $post)
 
-<x-post-card :post="$post"/>
+@if ($post->status === 1)
+                <x-post-card :post="$post"/>
+            @endif
    
 @endforeach
 

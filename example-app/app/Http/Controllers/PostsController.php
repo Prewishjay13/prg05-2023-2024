@@ -20,7 +20,7 @@ class PostsController extends Controller
         })->unique()->values();
          
         return view('posts.index', [
-            'posts' => Post::latest()->filter(request(['tag', 'search']))->paginate(5),
+            'posts' => Post::latest()->filter(['tag' => request('tag'), 'search' => request('search')])->paginate(5),
             'tags' => $tags,
         ]);
     }

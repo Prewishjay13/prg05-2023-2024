@@ -88,3 +88,8 @@ How to protect against sql injections?
 herkansing:
 slide aan uit voor posts of gebruikers, diepere validatie, dropdown voor tags.
 owasp en otap beter kennen, wat moet je doen in laravel om dit project online te krijgen. 
+hoe bescherm je tegen:
+sql injecties
+cross site scripting
+
+
