@@ -89,7 +89,13 @@ herkansing:
 slide aan uit voor posts of gebruikers, diepere validatie, dropdown voor tags.
 owasp en otap beter kennen, wat moet je doen in laravel om dit project online te krijgen. 
 hoe bescherm je tegen:
-sql injecties
+
+sql injecties: By default, Laravel's Eloquent ORM protects against SQL injection by parameterizing queries and using SQL bindings. 
+Always remember to use SQL bindings for request data. 
+example:
+use App\Models\User;
+User::where('email', $email)->get();
+
 cross site scripting
 
 
