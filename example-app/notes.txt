@@ -90,21 +90,31 @@ slide aan uit voor posts of gebruikers, diepere validatie, dropdown voor tags.
 owasp en otap beter kennen, wat moet je doen in laravel om dit project online te krijgen. 
 hoe bescherm je tegen:
 
-sql injecties: By default, Laravel's Eloquent ORM protects against SQL injection by parameterizing queries and using SQL bindings. 
+sql injecties: By default, Laravel's Eloquent ORM protects against SQL injection by parameterizing queries and using 
+SQL bindings. 
 Always remember to use SQL bindings for request data. 
 example:
 use App\Models\User;
 User::where('email', $email)->get();
 
 cross site scripting:
-Laravel's Blade templating engine has echo statements {{ }} that automatically 
-escape variables using the htmlspecialchars PHP function to protect against XSS attacks.
+{{}} in de code zorgt ervoor dat de data eerst eruit gehaald wordt en dan getoond zodat er geen html in gedaan
+kan worden.
 
-Cross Site Request Forgery (CSRF)¶
-Cross-Site Request Forgery (CSRF) is a type of attack that occurs when a malicious web site, email, blog, instant message, 
-or program causes a user's web browser to perform an unwanted action on a trusted site when the user is authenticated.
+Cross Site Request Forgery (CSRF):
+Cross-Site Request Forgery (CSRF) is a type of attack that occurs when a malicious web site, email, blog, 
+instant message, or program causes a user's web browser to perform an unwanted action on a trusted site 
+when the user is authenticated.
 
-Open Redirection¶
-Open Redirection attacks in themselves are not that dangerous but they enable phishing attacks.
+validation rule sql:
+in UserController
 
-Consider the following code:
+path traversal:
+door middleware auth, je kan niet op paginas komen zonder ingelogd te zijn
+
+
+security headers:
+x-frame
+
+
+
