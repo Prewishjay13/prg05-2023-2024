@@ -59,7 +59,7 @@ class PostsController extends Controller
             'company' => ['required', Rule::unique('posts', 'company')],
             'tags' => 'required',
             'email' => ['required', 'email'],
-            'website' => 'required',
+            'website' => ['required', 'URL'],
             'description' => 'required'
         ]);
         
