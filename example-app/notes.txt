@@ -116,5 +116,14 @@ door middleware auth, je kan niet op paginas komen zonder ingelogd te zijn
 security headers:
 x-frame
 
+Other Injections¶
+Object injection, eval code injection and extract variable hijacking attacks involve unserializing, evaluating or using the extract function on untrusted user input data.
+
+Some examples are:
+
+unserialize($request->input('data'));
+eval($request->input('data'));
+extract($request->all());
+
 
 
